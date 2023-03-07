@@ -41,14 +41,16 @@ const ticTacToe = () => {
     };
 
     const playSymbolAt = (symbol, index) => {
-      arrayOfCells[index].textContent = symbol;
-      track.forEach((array, idx1) => {
-        array.forEach((element, idx2) => {
-          if (element === index) {
-            track[idx1][idx2] = symbol;
-          }
+      if (arrayOfCells[index].textContent === "") {
+        arrayOfCells[index].textContent = symbol;
+        track.forEach((array, idx1) => {
+          array.forEach((element, idx2) => {
+            if (element === index) {
+              track[idx1][idx2] = symbol;
+            }
+          });
         });
-      });
+      }
     };
 
     return { track, createBoard, arrayOfCells, playSymbolAt };
@@ -59,6 +61,7 @@ const ticTacToe = () => {
     const players = [Player(0), Player(1)];
     let i = 0;
     let currentPlayer = players[i];
+    let gameStatus = true;
 
     const switchPlayer = () => {
       i = i === 0 ? 1 : 0;
@@ -73,9 +76,9 @@ const ticTacToe = () => {
       board.track.forEach((combo) => {
         if (combo.toString() === [sym, sym, sym].toString()) {
           console.log(currentPlayer, "wins");
+          gameStatus = false;
         }
       });
-      console.log(board.track);
     };
 
     const listenClick = () => {
