@@ -6,30 +6,47 @@
 
 body {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #main {
-  margin-top: 100px;
-}
-
-.board-cell {
-  width: 200px;
-  height: 200px;
-  background-color: blueviolet;
-  border: 2px solid yellow;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 6rem;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+  gap: 10px;
+  background-color: rgb(216, 221, 221);
+}
+
+.board-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   user-select: none;
+  width: 150px;
+  height: 150px;
+  background-color: rgb(157, 150, 163);
+  border-radius: 10px;
+  font-size: 6rem;
 }
 
 .board-row {
   display: flex;
-  margin: 0 auto;
-  width: 600px;
-  height: 200px;
+  width: 470px;
+  height: 150px;
+  gap: 10px;
 }
 
 header {
