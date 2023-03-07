@@ -1,6 +1,7 @@
 body {
   box-sizing: border-box;
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 .board-cell {
@@ -21,4 +22,19 @@ body {
   margin: 0 auto;
   width: 600px;
   height: 200px;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: black;
+}
+
+#title {
+  font-size: 4rem;
+  font-style: italic;
+  color: white;
+  font-family: "Shantell Sans", cursive, sans-serif;
 }
