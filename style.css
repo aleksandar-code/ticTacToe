@@ -2,3 +2,23 @@ body {
   box-sizing: border-box;
   margin: 0;
 }
+
+.board-cell {
+  width: 200px;
+  height: 200px;
+  background-color: blueviolet;
+  border: 2px solid yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  color: white;
+  user-select: none;
+}
+
+.board-row {
+  display: flex;
+  margin: 0 auto;
+  width: 600px;
+  height: 200px;
+}
