@@ -12,12 +12,10 @@ const ticTacToe = () => {
       ["", "", ""]
     ];
 
-    // const playSymbolAt = (symbol, at) => {};
-
-    // const displayBoard = () => {
-
-    // };
-
+    const arrayOfCells = [];
+    const getCell = (cell) => {
+      arrayOfCells.push(cell);
+    };
     const createBoard = () => {
       const gameBoard = doc.getElementById("game");
       board.forEach((row) => {
@@ -28,20 +26,24 @@ const ticTacToe = () => {
           const boardCell = doc.createElement("div");
           boardCell.classList.add("board-cell");
           const cellContent = document.createElement("p");
-          cellContent.textContent = "X";
+          cellContent.textContent = col;
+          getCell(boardCell);
           boardRow.appendChild(boardCell);
           boardCell.appendChild(cellContent);
         });
       });
     };
 
-    return { board, createBoard };
+    const playSymbolAt = (symbol, index) => {
+      arrayOfCells[index].textContent = symbol;
+    };
+
+    return { createBoard, arrayOfCells, playSymbolAt };
   })(document);
 
-  const Game = (() => {
+  const Game = () => {
     const board = Board;
     const players = [Player(0), Player(1)];
-    const keepGoing = true;
     let i = 0;
     let currentPlayer = players[i];
     const switchPlayer = () => {
@@ -50,14 +52,22 @@ const ticTacToe = () => {
     };
 
     board.createBoard();
-    // const gameLoop = () => {
-    //   while (keepGoing) {
-    //     board.playSymbolAt(currentPlayer.symbol);
-    //     switchPlayer();
-    //     keepGoing = false;
-    //   }
-    // };
-  })();
+    const listenClick = () => {
+      board.arrayOfCells.forEach((cell, index) => {
+        cell.addEventListener("click", () => {
+          board.playSymbolAt(currentPlayer.symbol, index);
+          switchPlayer();
+        });
+      });
+    };
+    const gameLoop = () => {
+      listenClick();
+    };
+    return { gameLoop };
+  };
+
+  const tictactoe = Game();
+  tictactoe.gameLoop();
 };
 
 ticTacToe();
