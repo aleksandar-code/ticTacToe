@@ -1,10 +1,8 @@
 const ticTacToe = () => {
   const Player = (id) => {
-    const name = document.getElementById("name").value;
-
     const symbol = id === 0 ? "X" : "O";
 
-    return { name, symbol, id };
+    return { symbol, id };
   };
 
   const Board = ((doc) => {
@@ -52,14 +50,14 @@ const ticTacToe = () => {
     };
 
     board.createBoard();
-    const gameLoop = () => {
-      // while (keepGoing) {
-      //   board.playSymbolAt(currentPlayer.symbol);
-      //   switchPlayer();
-      //   keepGoing = false;
-      // }
-    };
+    // const gameLoop = () => {
+    //   while (keepGoing) {
+    //     board.playSymbolAt(currentPlayer.symbol);
+    //     switchPlayer();
+    //     keepGoing = false;
+    //   }
+    // };
   })();
 };
 
-// ticTacToe();
+ticTacToe();
