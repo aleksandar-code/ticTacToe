@@ -80,7 +80,6 @@ const ticTacToe = () => {
       let bool = false;
       board.track.forEach((combo) => {
         if (combo.toString() === [sym, sym, sym].toString()) {
-          console.log(currentPlayer, "wins");
           gameStatus = false;
           bool = true;
         }
@@ -165,11 +164,15 @@ const ticTacToe = () => {
     replayGame();
   };
 
-  reset = () => {
+  const deleteBoard = () => {
     const boardRows = document.querySelectorAll(".board-row");
     boardRows.forEach((element) => {
       element.remove();
     });
+  };
+
+  reset = () => {
+    deleteBoard();
     enableClick();
     removeReplayScreen();
     ticTacToe();
