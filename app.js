@@ -75,7 +75,7 @@ const ticTacToe = () => {
 
   const Game = () => {
     const board = Board;
-    const players = [Player(0, "Human"), Player(1, "Computer")];
+    const players = [Player(0, "Player"), Player(1, "Computer")];
     let i = 0;
     let currentPlayer = players[i];
     let gameStatus = true;
@@ -156,21 +156,8 @@ const ticTacToe = () => {
     gameBoard.style.pointerEvents = "auto";
   };
 
-  const showReplayScreen = (string) => {
-    const replayCard = document.createElement("div");
-    replayCard.setAttribute("id", "replay-card");
-    const main = document.getElementById("main");
-    const replayButton = document.createElement("button");
-    replayButton.setAttribute("id", "replay-button");
-    replayButton.textContent = "Play Again";
-    replayCard.textContent = string;
-    main.appendChild(replayCard);
-    replayCard.appendChild(replayButton);
-  };
-
-  const removeReplayScreen = () => {
-    const replayCard = document.getElementById("replay-card");
-    replayCard.remove();
+  const showWinner = (string) => {
+    document.getElementById("show-winner").textContent = string;
   };
 
   const start = () => {
@@ -178,17 +165,10 @@ const ticTacToe = () => {
     tictactoe.gameLoop();
   };
 
-  const replayGame = () => {
-    const replayButton = document.getElementById("replay-button");
-    replayButton.addEventListener("click", () => {
-      reset();
-    });
-  };
-
   const updateScore = (string) => {
     const scoreTxt = document.getElementById("score");
     let text = scoreTxt.innerHTML;
-    if (string[0] === "H") {
+    if (string[0] === "P") {
       text = text.split("-");
       const result = Number(text[0]) + 1;
       text[0] = result.toString();
@@ -205,9 +185,9 @@ const ticTacToe = () => {
 
   gameEnd = (string) => {
     disableClick();
-    showReplayScreen(string);
-    replayGame();
+    showWinner(string);
     updateScore(string);
+    setTimeout(() => reset(), 500);
   };
 
   const deleteBoard = () => {
@@ -220,7 +200,6 @@ const ticTacToe = () => {
   reset = () => {
     deleteBoard();
     enableClick();
-    removeReplayScreen();
     ticTacToe();
   };
   start();
