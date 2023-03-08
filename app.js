@@ -92,20 +92,22 @@ const ticTacToe = () => {
         if (combo.toString() === [sym, sym, sym].toString()) {
           gameStatus = false;
           bool = true;
+          console.log(currentPlayer.symbol, "wins");
         }
       });
       return bool;
     };
 
     const checkTie = () => {
-      if (board.times === 9) gameStatus = false;
+      if (board.times === 9 && gameStatus === true) gameStatus = false;
     };
-
+    let displayWinnerOrTie;
     const playerPlay = (index) => {
       const bool = board.playSymbolAt(currentPlayer.symbol, index);
       if (bool === true) board.times += 1;
       checkWin();
       checkTie();
+      displayWinnerOrTie();
       switchPlayer();
     };
 
@@ -116,9 +118,20 @@ const ticTacToe = () => {
         bool = board.playSymbolAt(currentPlayer.symbol, index);
         checkWin();
         checkTie();
+        displayWinnerOrTie();
       }
-      board.times += 1;
+      if (bool === true) board.times += 1;
       switchPlayer();
+    };
+
+    displayWinnerOrTie = () => {
+      if (gameStatus === false) {
+        if (checkWin() === true) {
+          gameEnd(`${currentPlayer.symbol} wins`);
+        } else {
+          gameEnd("It's a Tie!");
+        }
+      }
     };
 
     const gameLoop = () => {
@@ -128,18 +141,8 @@ const ticTacToe = () => {
           computerPlay();
         });
       });
-
-      const gameBoard = document.getElementById("game");
-      gameBoard.onclick = () => {
-        if (gameStatus === false) {
-          if (checkWin() === true) {
-            gameEnd(`${currentPlayer.symbol} wins`);
-          } else {
-            gameEnd("It's a Tie!");
-          }
-        }
-      };
     };
+
     return { gameLoop };
   };
 
