@@ -2,9 +2,9 @@ const ticTacToe = () => {
   let gameEnd;
   let reset;
 
-  const Player = (id) => {
+  const Player = (id, name) => {
     const symbol = id === 0 ? "X" : "O";
-    return { symbol, id };
+    return { name, symbol, id };
   };
 
   const Board = ((doc) => {
@@ -75,7 +75,7 @@ const ticTacToe = () => {
 
   const Game = () => {
     const board = Board;
-    const players = [Player(0), Player(1)];
+    const players = [Player(0, "Human"), Player(1, "Computer")];
     let i = 0;
     let currentPlayer = players[i];
     let gameStatus = true;
@@ -92,7 +92,6 @@ const ticTacToe = () => {
         if (combo.toString() === [sym, sym, sym].toString()) {
           gameStatus = false;
           bool = true;
-          console.log(currentPlayer.symbol, "wins");
         }
       });
       return bool;
@@ -129,7 +128,7 @@ const ticTacToe = () => {
     displayWinnerOrTie = () => {
       if (gameStatus === false) {
         if (checkWin() === true) {
-          gameEnd(`${currentPlayer.symbol} wins`);
+          gameEnd(`${currentPlayer.name} wins`);
         } else {
           gameEnd("It's a Tie!");
         }
@@ -186,10 +185,29 @@ const ticTacToe = () => {
     });
   };
 
+  const updateScore = (string) => {
+    const scoreTxt = document.getElementById("score");
+    let text = scoreTxt.innerHTML;
+    if (string[0] === "H") {
+      const result = Number(text[4]) + 1;
+      text = text.split("");
+      text[4] = result.toString();
+      text = text.join("");
+    } else if (string[0] === "C") {
+      const result = Number(text[0]) + 1;
+      text = text.split("");
+      text[0] = result.toString();
+      text = text.join("");
+    }
+
+    scoreTxt.textContent = text;
+  };
+
   gameEnd = (string) => {
     disableClick();
     showReplayScreen(string);
     replayGame();
+    updateScore(string);
   };
 
   const deleteBoard = () => {
