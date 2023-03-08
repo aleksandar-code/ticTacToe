@@ -27,7 +27,7 @@ const ticTacToe = () => {
 
     const symbolsPlaced = 0;
 
-    const createBoard = (() => {
+    (function createBoard() {
       const gameBoard = doc.getElementById("game");
       board.forEach((row) => {
         const boardRow = document.createElement("div");
@@ -43,11 +43,20 @@ const ticTacToe = () => {
       });
     })();
 
+    const changeColor = (symbol, index) => {
+      if (symbol === "X") {
+        arrayOfCells[index].style.color = "#f34a4a";
+      } else {
+        arrayOfCells[index].style.color = "#68c968";
+      }
+    };
+
     const playSymbolAt = (symbol, index) => {
       let bool = false;
       if (arrayOfCells[index].textContent === "") {
         bool = !bool;
         arrayOfCells[index].textContent = symbol;
+        changeColor(symbol, index);
         track.forEach((array, idx1) => {
           array.forEach((element, idx2) => {
             if (element === index) {
@@ -59,7 +68,7 @@ const ticTacToe = () => {
       return bool;
     };
 
-    return { track, createBoard, arrayOfCells, playSymbolAt, symbolsPlaced };
+    return { track, arrayOfCells, playSymbolAt, symbolsPlaced };
   })(document);
 
   const Game = () => {
