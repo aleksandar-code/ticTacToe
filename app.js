@@ -1,4 +1,11 @@
 const ticTacToe = () => {
+  let start;
+  let reset;
+  let replayGame;
+  let showReplayScreen;
+  let disableClick;
+  let enableClick;
+  let removeReplayScreen;
   const Player = (id) => {
     const symbol = id === 0 ? "X" : "O";
     return { symbol, id };
@@ -71,13 +78,6 @@ const ticTacToe = () => {
 
     board.createBoard();
 
-    const stopGame = () => {
-      const gameBoard = document.getElementById("game");
-      gameBoard.style.pointerEvents = "none";
-    };
-
-    const showReplayScreen = () => {};
-
     const checkWin = () => {
       const sym = currentPlayer.symbol;
 
@@ -103,16 +103,71 @@ const ticTacToe = () => {
       const gameBoard = document.getElementById("game");
       gameBoard.onclick = () => {
         if (gameStatus === false) {
-          stopGame();
+          disableClick();
           showReplayScreen();
+          replayGame();
         }
       };
     };
     return { gameLoop };
   };
+  let tictactoe;
 
-  const tictactoe = Game();
-  tictactoe.gameLoop();
+  // eslint-disable-next-line prefer-const
+
+  disableClick = () => {
+    const gameBoard = document.getElementById("game");
+    gameBoard.style.pointerEvents = "none";
+  };
+
+  // eslint-disable-next-line prefer-const
+  enableClick = () => {
+    const gameBoard = document.getElementById("game");
+    gameBoard.style.pointerEvents = "auto";
+  };
+
+  showReplayScreen = () => {
+    const replayCard = document.createElement("div");
+    replayCard.setAttribute("id", "replay-card");
+    const main = document.getElementById("main");
+    const replayButton = document.createElement("button");
+    replayButton.setAttribute("id", "replay-button");
+    replayButton.textContent = "Replay";
+    replayCard.textContent = "You lost";
+    main.appendChild(replayCard);
+    replayCard.appendChild(replayButton);
+  };
+
+  // eslint-disable-next-line prefer-const
+  removeReplayScreen = () => {
+    const replayCard = document.getElementById("replay-card");
+    replayCard.remove();
+  };
+
+  // eslint-disable-next-line prefer-const
+  start = () => {
+    tictactoe = Game();
+    tictactoe.gameLoop();
+  };
+
+  replayGame = () => {
+    const replayButton = document.getElementById("replay-button");
+    replayButton.addEventListener("click", () => {
+      reset();
+    });
+  };
+
+  reset = () => {
+    tictactoe = null;
+    const boardRows = document.querySelectorAll(".board-row");
+    boardRows.forEach((element) => {
+      element.remove();
+    });
+    enableClick();
+    removeReplayScreen();
+    start();
+  };
+  start();
 };
 
 ticTacToe();

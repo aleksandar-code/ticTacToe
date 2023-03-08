@@ -64,3 +64,19 @@ header {
   color: white;
   font-family: "Shantell Sans", cursive, sans-serif;
 }
+
+#replay-card {
+  width: 400px;
+  height: 250px;
+  background-color: rgba(243, 220, 220, 0.514);
+  border: 1px solid yellow;
+  position: fixed;
+  color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#replay-button {
+  background-color: blue;
+}
