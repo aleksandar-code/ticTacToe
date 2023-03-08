@@ -41,7 +41,7 @@ body {
   height: 150px;
   background-color: rgb(157, 150, 163);
   border-radius: 10px;
-  font-size: 10rem;
+  font-size: 8rem;
   transition: all ease 0.4s;
 }
 
@@ -115,13 +115,14 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(157, 150, 163);
     user-select: none;
     width: 100px;
     height: 100px;
     background-color: rgb(157, 150, 163);
     border-radius: 10px;
-    font-size: 6rem;
+    font-size: 8em;
+    transition: all ease-in-out 0.4s;
   }
 
   .board-row {

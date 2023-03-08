@@ -49,7 +49,8 @@ const ticTacToe = () => {
       } else {
         arrayOfCells[index].style.color = "#68c968";
       }
-      arrayOfCells[index].style.fontSize = "7rem";
+
+      arrayOfCells[index].style.fontSize = "6rem";
     };
 
     const playSymbolAt = (symbol, index) => {
