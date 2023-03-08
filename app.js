@@ -189,15 +189,15 @@ const ticTacToe = () => {
     const scoreTxt = document.getElementById("score");
     let text = scoreTxt.innerHTML;
     if (string[0] === "H") {
-      const result = Number(text[4]) + 1;
-      text = text.split("");
-      text[4] = result.toString();
-      text = text.join("");
-    } else if (string[0] === "C") {
+      text = text.split("-");
       const result = Number(text[0]) + 1;
-      text = text.split("");
       text[0] = result.toString();
-      text = text.join("");
+      text = text.join(" - ");
+    } else if (string[0] === "C") {
+      text = text.split("-");
+      const result = Number(text[1]) + 1;
+      text[1] = result.toString();
+      text = text.join(" - ");
     }
 
     scoreTxt.textContent = text;
