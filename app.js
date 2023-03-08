@@ -43,7 +43,7 @@ const ticTacToe = () => {
       });
     })();
 
-    const changeColorAndFontSize = (symbol, index) => {
+    const addAnimation = (symbol, index) => {
       if (symbol === "X") {
         arrayOfCells[index].style.color = "#f34a4a";
       } else {
@@ -57,7 +57,7 @@ const ticTacToe = () => {
       if (arrayOfCells[index].textContent === "") {
         bool = !bool;
         arrayOfCells[index].textContent = symbol;
-        changeColorAndFontSize(symbol, index);
+        addAnimation(symbol, index);
         track.forEach((array, idx1) => {
           array.forEach((element, idx2) => {
             if (element === index) {
