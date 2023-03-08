@@ -25,7 +25,7 @@ const ticTacToe = () => {
       [2, 5, 8]
     ];
 
-    const symbolsPlaced = 0;
+    const times = 0;
 
     (function createBoard() {
       const gameBoard = doc.getElementById("game");
@@ -70,7 +70,7 @@ const ticTacToe = () => {
       return bool;
     };
 
-    return { track, arrayOfCells, playSymbolAt, symbolsPlaced };
+    return { track, arrayOfCells, playSymbolAt, times };
   })(document);
 
   const Game = () => {
@@ -83,7 +83,6 @@ const ticTacToe = () => {
     const switchPlayer = () => {
       i = i === 0 ? 1 : 0;
       currentPlayer = players[i];
-      board.symbolsPlaced += 1;
     };
 
     const checkWin = () => {
@@ -99,16 +98,19 @@ const ticTacToe = () => {
     };
 
     const checkTie = () => {
-      if (gameStatus === true && board.symbolsPlaced === 8) {
-        gameStatus = false;
-      }
+      if (board.times === 9) gameStatus = false;
     };
 
     const playRound = (index) => {
       const bool = board.playSymbolAt(currentPlayer.symbol, index);
+      if (bool === true) {
+        board.times += 1;
+      }
       checkWin();
       checkTie();
-      if (bool === true && checkWin() === false) switchPlayer();
+      if (bool === true && checkWin() === false && gameStatus === true) {
+        switchPlayer();
+      }
     };
 
     const gameLoop = () => {
