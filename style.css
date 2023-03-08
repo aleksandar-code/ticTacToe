@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none;
-  background-color: rgb(171, 233, 212);
+  background: linear-gradient(160deg, #818181 20%, #000000 100%);
 }
 
 #main {
@@ -28,7 +28,7 @@ body {
   height: 500px;
   border-radius: 10px;
   gap: 10px;
-  background-color: rgb(216, 221, 221);
+  background: none;
 }
 
 .board-cell {
@@ -39,7 +39,8 @@ body {
   user-select: none;
   width: 150px;
   height: 150px;
-  background-color: rgb(157, 150, 163);
+  background-color: #727274;
+  border: 1px solid black;
   border-radius: 10px;
   font-size: 10rem;
   transition: all ease 0.4s;
@@ -57,7 +58,7 @@ header {
   justify-content: center;
   align-items: center;
   height: 100px;
-  background-color: black;
+  background: linear-gradient(311deg, #111111 30%, #a7a7aa 100%);
 }
 
 #title {
@@ -108,7 +109,7 @@ header {
     height: 340px;
     border-radius: 10px;
     gap: 10px;
-    background-color: rgb(216, 221, 221);
+    background: none;
   }
 
   .board-cell {
@@ -119,7 +120,8 @@ header {
     user-select: none;
     width: 100px;
     height: 100px;
-    background-color: rgb(157, 150, 163);
+    background-color: #727274;
+    border: 1px solid black;
     border-radius: 10px;
     font-size: 8em;
     transition: all ease-in-out 0.4s;
