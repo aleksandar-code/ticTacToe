@@ -111,7 +111,7 @@ const ticTacToe = () => {
         checkTie();
         displayWinnerOrTie();
       }
-      if (bool === true) board.times += 1;
+      board.times += 1;
       switchPlayer();
     };
     const playRound = (index) => {
