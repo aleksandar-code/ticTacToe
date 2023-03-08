@@ -1,11 +1,7 @@
 const ticTacToe = () => {
-  let start;
+  let gameEnd;
   let reset;
-  let replayGame;
-  let showReplayScreen;
-  let disableClick;
-  let enableClick;
-  let removeReplayScreen;
+
   const Player = (id) => {
     const symbol = id === 0 ? "X" : "O";
     return { symbol, id };
@@ -29,7 +25,9 @@ const ticTacToe = () => {
       [2, 5, 8]
     ];
 
-    const createBoard = () => {
+    const symbolsPlaced = 0;
+
+    const createBoard = (() => {
       const gameBoard = doc.getElementById("game");
       board.forEach((row) => {
         const boardRow = document.createElement("div");
@@ -43,7 +41,7 @@ const ticTacToe = () => {
           boardRow.appendChild(boardCell);
         });
       });
-    };
+    })();
 
     const playSymbolAt = (symbol, index) => {
       let bool = false;
@@ -61,7 +59,7 @@ const ticTacToe = () => {
       return bool;
     };
 
-    return { track, createBoard, arrayOfCells, playSymbolAt };
+    return { track, createBoard, arrayOfCells, playSymbolAt, symbolsPlaced };
   })(document);
 
   const Game = () => {
@@ -74,25 +72,33 @@ const ticTacToe = () => {
     const switchPlayer = () => {
       i = i === 0 ? 1 : 0;
       currentPlayer = players[i];
+      board.symbolsPlaced += 1;
     };
-
-    board.createBoard();
 
     const checkWin = () => {
       const sym = currentPlayer.symbol;
-
+      let bool = false;
       board.track.forEach((combo) => {
         if (combo.toString() === [sym, sym, sym].toString()) {
           console.log(currentPlayer, "wins");
           gameStatus = false;
+          bool = true;
         }
       });
+      return bool;
+    };
+
+    const checkTie = () => {
+      if (gameStatus === true && board.symbolsPlaced === 8) {
+        gameStatus = false;
+      }
     };
 
     const playRound = (index) => {
       const bool = board.playSymbolAt(currentPlayer.symbol, index);
       checkWin();
-      if (bool === true) switchPlayer();
+      checkTie();
+      if (bool === true && checkWin() === false) switchPlayer();
     };
 
     const gameLoop = () => {
@@ -103,69 +109,70 @@ const ticTacToe = () => {
       const gameBoard = document.getElementById("game");
       gameBoard.onclick = () => {
         if (gameStatus === false) {
-          disableClick();
-          showReplayScreen();
-          replayGame();
+          if (checkWin() === true) {
+            gameEnd(`${currentPlayer.symbol} wins`);
+          } else {
+            gameEnd("It's a Tie!");
+          }
         }
       };
     };
     return { gameLoop };
   };
-  let tictactoe;
 
-  // eslint-disable-next-line prefer-const
-
-  disableClick = () => {
+  const disableClick = () => {
     const gameBoard = document.getElementById("game");
     gameBoard.style.pointerEvents = "none";
   };
 
-  // eslint-disable-next-line prefer-const
-  enableClick = () => {
+  const enableClick = () => {
     const gameBoard = document.getElementById("game");
     gameBoard.style.pointerEvents = "auto";
   };
 
-  showReplayScreen = () => {
+  const showReplayScreen = (string) => {
     const replayCard = document.createElement("div");
     replayCard.setAttribute("id", "replay-card");
     const main = document.getElementById("main");
     const replayButton = document.createElement("button");
     replayButton.setAttribute("id", "replay-button");
     replayButton.textContent = "Replay";
-    replayCard.textContent = "You lost";
+    replayCard.textContent = string;
     main.appendChild(replayCard);
     replayCard.appendChild(replayButton);
   };
 
-  // eslint-disable-next-line prefer-const
-  removeReplayScreen = () => {
+  const removeReplayScreen = () => {
     const replayCard = document.getElementById("replay-card");
     replayCard.remove();
   };
 
-  // eslint-disable-next-line prefer-const
-  start = () => {
-    tictactoe = Game();
+  const start = () => {
+    const tictactoe = Game();
     tictactoe.gameLoop();
   };
 
-  replayGame = () => {
+  const replayGame = () => {
     const replayButton = document.getElementById("replay-button");
     replayButton.addEventListener("click", () => {
       reset();
     });
   };
 
+  gameEnd = (string) => {
+    disableClick();
+    showReplayScreen(string);
+    replayGame();
+  };
+
   reset = () => {
-    tictactoe = null;
     const boardRows = document.querySelectorAll(".board-row");
     boardRows.forEach((element) => {
       element.remove();
     });
     enableClick();
     removeReplayScreen();
-    start();
+    ticTacToe();
   };
   start();
 };

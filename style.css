@@ -69,14 +69,21 @@ header {
   width: 400px;
   height: 250px;
   background-color: rgba(243, 220, 220, 0.514);
-  border: 1px solid yellow;
+  border: 1px solid rgb(8, 8, 8);
   position: fixed;
   color: green;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
 }
 
 #replay-button {
-  background-color: blue;
+  background-color: rgb(103, 103, 219);
+  width: 120px;
+  height: 30px;
+  font-size: 1rem;
+  color: white;
 }
