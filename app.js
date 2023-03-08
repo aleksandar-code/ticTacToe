@@ -101,21 +101,32 @@ const ticTacToe = () => {
       if (board.times === 9) gameStatus = false;
     };
 
-    const playRound = (index) => {
+    const playerPlay = (index) => {
       const bool = board.playSymbolAt(currentPlayer.symbol, index);
-      if (bool === true) {
-        board.times += 1;
-      }
+      if (bool === true) board.times += 1;
       checkWin();
       checkTie();
-      if (bool === true && checkWin() === false && gameStatus === true) {
-        switchPlayer();
+      switchPlayer();
+    };
+
+    const computerPlay = () => {
+      let bool = false;
+      while (bool === false && board.times !== 9 && gameStatus === true) {
+        const index = Math.floor(Math.random() * 9);
+        bool = board.playSymbolAt(currentPlayer.symbol, index);
+        checkWin();
+        checkTie();
       }
+      board.times += 1;
+      switchPlayer();
     };
 
     const gameLoop = () => {
       board.arrayOfCells.forEach((cell, index) => {
-        cell.addEventListener("click", () => playRound(index));
+        cell.addEventListener("click", () => {
+          playerPlay(index);
+          computerPlay();
+        });
       });
 
       const gameBoard = document.getElementById("game");
