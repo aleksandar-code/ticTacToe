@@ -162,7 +162,7 @@ const ticTacToe = () => {
     const main = document.getElementById("main");
     const replayButton = document.createElement("button");
     replayButton.setAttribute("id", "replay-button");
-    replayButton.textContent = "Replay";
+    replayButton.textContent = "Play Again";
     replayCard.textContent = string;
     main.appendChild(replayCard);
     replayCard.appendChild(replayButton);
