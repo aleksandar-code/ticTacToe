@@ -43,12 +43,13 @@ const ticTacToe = () => {
       });
     })();
 
-    const changeColor = (symbol, index) => {
+    const changeColorAndFontSize = (symbol, index) => {
       if (symbol === "X") {
         arrayOfCells[index].style.color = "#f34a4a";
       } else {
         arrayOfCells[index].style.color = "#68c968";
       }
+      arrayOfCells[index].style.fontSize = "7rem";
     };
 
     const playSymbolAt = (symbol, index) => {
@@ -56,7 +57,7 @@ const ticTacToe = () => {
       if (arrayOfCells[index].textContent === "") {
         bool = !bool;
         arrayOfCells[index].textContent = symbol;
-        changeColor(symbol, index);
+        changeColorAndFontSize(symbol, index);
         track.forEach((array, idx1) => {
           array.forEach((element, idx2) => {
             if (element === index) {
