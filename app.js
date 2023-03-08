@@ -102,15 +102,6 @@ const ticTacToe = () => {
       if (board.times === 9 && gameStatus === true) gameStatus = false;
     };
     let displayWinnerOrTie;
-    const playerPlay = (index) => {
-      const bool = board.playSymbolAt(currentPlayer.symbol, index);
-      if (bool === true) board.times += 1;
-      checkWin();
-      checkTie();
-      displayWinnerOrTie();
-      switchPlayer();
-    };
-
     const computerPlay = () => {
       let bool = false;
       while (bool === false && board.times !== 9 && gameStatus === true) {
@@ -122,6 +113,17 @@ const ticTacToe = () => {
       }
       if (bool === true) board.times += 1;
       switchPlayer();
+    };
+    const playRound = (index) => {
+      const bool = board.playSymbolAt(currentPlayer.symbol, index);
+      if (bool === true) {
+        board.times += 1;
+        checkWin();
+        checkTie();
+        displayWinnerOrTie();
+        switchPlayer();
+        computerPlay();
+      }
     };
 
     displayWinnerOrTie = () => {
@@ -137,8 +139,7 @@ const ticTacToe = () => {
     const gameLoop = () => {
       board.arrayOfCells.forEach((cell, index) => {
         cell.addEventListener("click", () => {
-          playerPlay(index);
-          computerPlay();
+          playRound(index);
         });
       });
     };
