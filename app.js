@@ -41,7 +41,9 @@ const ticTacToe = () => {
     };
 
     const playSymbolAt = (symbol, index) => {
+      let bool = false;
       if (arrayOfCells[index].textContent === "") {
+        bool = !bool;
         arrayOfCells[index].textContent = symbol;
         track.forEach((array, idx1) => {
           array.forEach((element, idx2) => {
@@ -51,6 +53,7 @@ const ticTacToe = () => {
           });
         });
       }
+      return bool;
     };
 
     return { track, createBoard, arrayOfCells, playSymbolAt };
@@ -81,17 +84,16 @@ const ticTacToe = () => {
       });
     };
 
-    const listenClick = () => {
-      board.arrayOfCells.forEach((cell, index) => {
-        cell.addEventListener("click", () => {
-          board.playSymbolAt(currentPlayer.symbol, index);
-          checkWin();
-          switchPlayer();
-        });
-      });
+    const playRound = (index) => {
+      const bool = board.playSymbolAt(currentPlayer.symbol, index);
+      checkWin();
+      if (bool === true) switchPlayer();
     };
+
     const gameLoop = () => {
-      listenClick();
+      board.arrayOfCells.forEach((cell, index) => {
+        cell.addEventListener("click", () => playRound(index));
+      });
     };
     return { gameLoop };
   };
