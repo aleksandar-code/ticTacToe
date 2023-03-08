@@ -28,14 +28,12 @@ const ticTacToe = () => {
         const boardRow = document.createElement("div");
         boardRow.classList.add("board-row");
         gameBoard.appendChild(boardRow);
-        row.forEach((col) => {
+        row.forEach(() => {
           const boardCell = doc.createElement("div");
           boardCell.classList.add("board-cell");
-          const cellContent = document.createElement("p");
-          cellContent.textContent = col;
+
           arrayOfCells.push(boardCell);
           boardRow.appendChild(boardCell);
-          boardCell.appendChild(cellContent);
         });
       });
     };
@@ -73,6 +71,13 @@ const ticTacToe = () => {
 
     board.createBoard();
 
+    const stopGame = () => {
+      const gameBoard = document.getElementById("game");
+      gameBoard.style.pointerEvents = "none";
+    };
+
+    const showReplayScreen = () => {};
+
     const checkWin = () => {
       const sym = currentPlayer.symbol;
 
@@ -94,6 +99,14 @@ const ticTacToe = () => {
       board.arrayOfCells.forEach((cell, index) => {
         cell.addEventListener("click", () => playRound(index));
       });
+
+      const gameBoard = document.getElementById("game");
+      gameBoard.onclick = () => {
+        if (gameStatus === false) {
+          stopGame();
+          showReplayScreen();
+        }
+      };
     };
     return { gameLoop };
   };
